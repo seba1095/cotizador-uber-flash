@@ -68,7 +68,7 @@ app.post('/cotizar', async (req, res) => {
           service_code: "FLASH",
           //price: "$1001",
           total_price: Math.round(costo).toString(),
-          price_unformatted: Math.round(costo)
+          price_unformatted: 6000
         }
       ]
     };
