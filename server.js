@@ -54,7 +54,10 @@ app.post('/cotizar', async (req, res) => {
     const destino = req.body.request.to.address + ' ' + req.body.request.to.street_number + ', ' + req.body.request.to.municipality_name + ', ' + req.body.request.to.region_name + ', ' + 'Chile';
     
     let km = 0;
-    km = await getDistanceInKm(ORIGEN, destino);;
+    km = await getDistanceInKm(ORIGEN, destino);
+    if (km > 9) {
+      return res.status(400).json({ error: 'La distancia máxima permitida es 9 km.' });
+    }
     let costo = 0;
     costo = calcularCostoFlash(km);
 
@@ -68,7 +71,7 @@ app.post('/cotizar', async (req, res) => {
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH2",
           //price: "$1001",
-          total_price: Math.round(costo).toString()
+          total_price: "7000"
           //price_unformatted: parseInt(`${total}`, 10)
         }
       ]
