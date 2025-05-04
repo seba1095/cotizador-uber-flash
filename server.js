@@ -41,7 +41,8 @@ const getDistanceInKm = async (origen, destino) => {
 const calcularCostoFlash = (km) => {
   const base = 3000;
   const porKm = 500;
-  const bruto = base + (km * porKm);
+  let bruto = 0
+  bruto = base + (km * porKm);
   return bruto;
 };
 
@@ -51,7 +52,7 @@ app.post('/cotizar', async (req, res) => {
   try {
     const destino = req.body.request.to.address + ' ' + req.body.request.to.street_number + ', ' + req.body.request.to.municipality_name + ', ' + req.body.request.to.region_name + ', ' + 'Chile';
     
-    let km = await getDistanceInKm(ORIGEN, destino);
+    let km = 0;
     km = await getDistanceInKm(ORIGEN, destino);;
     const costo = calcularCostoFlash(km);
 
