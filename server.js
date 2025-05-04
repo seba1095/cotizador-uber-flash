@@ -70,7 +70,8 @@ app.post('/cotizar', async (req, res) => {
           service_code: "FLASH2",
           //price: "$1001",
           total_price: `${total}`,
-          price_unformatted: parseInt(`${total}`, 10)
+          price_unformatted: parseInt(`${total}`, 10),
+          raw_shipping: parseInt(`${total}`, 10)
         }
       ]
     };
