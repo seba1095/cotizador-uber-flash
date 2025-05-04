@@ -39,11 +39,13 @@ const calcularCostoFlash = (km) => {
   return Math.round(bruto / 100) * 100;
 };
 
-const costo = calcularCostoFlash(11);
+// Esta línea ya no se necesita, porque el costo será dinámico según la distancia
 
 app.post('/cotizar', async (req, res) => {
   try {
-    //const costo = 6100;
+    const destino = req.body.request.to.address + ', ' + req.body.request.to.city + ', ' + req.body.request.to.region_name + ', ' + req.body.request.to.country;
+    const km = await getDistanceInKm(ORIGEN, destino);
+    const costo = calcularCostoFlash(km);
 
     const respuesta = {
       reference_id: `RND${Date.now()}`,
@@ -53,9 +55,9 @@ app.post('/cotizar', async (req, res) => {
           rate_description: "Tarifa fija",
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
-          price: "$6.150",
-          price_unformatted: 6130.1,
-          total_price: 6131.1
+          price: `$${costo.toLocaleString('es-CL')}`,
+          price_unformatted: costo,
+          total_price: costo
         }
       ]
     };
