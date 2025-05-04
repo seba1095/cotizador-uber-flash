@@ -63,8 +63,14 @@ app.post('/cotizar', async (req, res) => {
       throw new Error('Dirección incompleta');
     }
     const destino = `${to.address} ${to.street_number}, ${to.city}, ${to.region_name}, ${to.country}`;
-    console.log("Consultando distancia a:", destino);
-    const km = await getDistanceInKm(ORIGEN, destino);
+    let km;
+    try {
+      console.log("Destino construido:", destino);
+      km = await getDistanceInKm(ORIGEN, destino);
+    } catch (err) {
+      console.error("Error al obtener distancia:", err.response?.data || err.message);
+      throw new Error("Fallo la consulta a Google Maps");
+    }
 
     // if (km > 11) {
     //   return res.status(200).json({
