@@ -55,27 +55,225 @@ app.post('/cotizar', async (req, res) => {
     
     let km = 0;
     km = await getDistanceInKm(ORIGEN, destino);
-    if (km > 10) {
-      return res.status(400).json({ error: 'La distancia máxima permitida es 9 km.' });
+    
+    if (km < 1) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "3500"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
     }
-    let costo = 0;
-    costo = calcularCostoFlash(km);
+
+    if (km >= 1 & km < 2) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "3990"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 2 & km < 3) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "4500"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 3 & km < 4) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "4990"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 4 & km < 5) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "5500"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 5 & km < 6) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "5990"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
 
 
-    const respuesta = {
-      //reference_id: `RND_${costo}}`,
-      rates: [
-        {
-          //rate_id: "242421214",
-          //rate_description: "Tarifa fija",
-          service_name: "Envío Flash (Uber Moto)",
-          service_code: "FLASH2",
-          //price: "$1001",
-          total_price: "6990"
-          //price_unformatted: parseInt(`${total}`, 10)
-        }
-      ]
-    };
+    if (km >= 6 & km < 7) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "6500"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 7 & km < 9) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "6990"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 9 & km < 10) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "7990"
+            //: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+
+    if (km >= 10& km < 11) {
+      let costo = 0;
+      costo = calcularCostoFlash(km);
+  
+  
+      const respuesta = {
+        //reference_id: `RND_${costo}}`,
+        rates: [
+          {
+            //rate_id: "242421214",
+            //rate_description: "Tarifa fija",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH2",
+            //price: "$1001",
+            total_price: "8990"
+            //price_unformatted: parseInt(`${total}`, 10)
+          }
+        ]
+      };
+    }
+    
+    
+    if (km > 11) {
+      return res.status(400).json({ error: 'La distancia máxima permitida es 9 km.' });
+
+
+    }
+
 
     console.log("Respuesta enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
     return res.status(200).json(respuesta);
