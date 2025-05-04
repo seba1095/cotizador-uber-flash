@@ -55,7 +55,7 @@ app.post('/cotizar', async (req, res) => {
     
     let km = 0;
     km = await getDistanceInKm(ORIGEN, destino);
-    if (km > 9) {
+    if (km > 10) {
       return res.status(400).json({ error: 'La distancia máxima permitida es 9 km.' });
     }
     let costo = 0;
