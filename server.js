@@ -77,7 +77,7 @@ app.post('/cotizar', async (req, res) => {
       reference_id: "RND" + Math.floor(Math.random() * 1000000),
       rates: [
         {
-          rate_id: "FLASH_" + Date.now(),
+          rate_id: "FLASH_STATIC",
           rate_description: `Entrega rápida (${km.toFixed(2)} km)`,
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
