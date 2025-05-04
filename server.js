@@ -43,8 +43,8 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
-   const destino = req.body.request.to.address + ', ' + req.body.request.to.city + ', ' + req.body.request.to.region_name + ', ' + req.body.request.to.country;
-    //const km = await getDistanceInKm(ORIGEN, destino);
+    const destino = req.body.request.to.address + ', ' + req.body.request.to.city + ', ' + req.body.request.to.region_name + ', ' + req.body.request.to.country;
+    const km = await getDistanceInKm(ORIGEN, destino);
     //const costo = calcularCostoFlash(km);
     costo = 1000
 
@@ -58,7 +58,7 @@ app.post('/cotizar', async (req, res) => {
           service_code: "FLASH",
           price: "$1001",
           price_unformatted: 1000.1,
-          total_price: 1000.1
+          total_price: 2000.1
         }
       ]
     };
