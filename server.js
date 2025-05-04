@@ -57,7 +57,6 @@ app.post('/cotizar', async (req, res) => {
     km = await getDistanceInKm(ORIGEN, destino);;
     let costo = 0;
     costo = calcularCostoFlash(km);
-    const total = Math.round(costo);
 
 
     const respuesta = {
