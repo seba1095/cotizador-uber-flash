@@ -42,6 +42,7 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
+    /*
     const to = req.body?.request?.to;
 
     // Si no hay dirección destino, responder con formato compatible con Jumpseller
@@ -82,6 +83,19 @@ app.post('/cotizar', async (req, res) => {
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
           total_price: costo.toString()
+        }
+      ]
+    });
+    */
+    return res.status(200).json({
+      reference_id: "TEST_STATIC",
+      rates: [
+        {
+          rate_id: "FLASH_STATIC",
+          rate_description: "Entrega rápida (valor fijo)",
+          service_name: "Envío Flash (Uber Moto)",
+          service_code: "FLASH",
+          total_price: "6000"
         }
       ]
     });
