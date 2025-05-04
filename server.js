@@ -35,8 +35,8 @@ const getDistanceInKm = async (origen, destino) => {
 };
 
 const calcularCostoFlash = (km) => {
-  const base = 1500;
-  const porKm = 400;
+  const base = 2500;
+  const porKm = 500;
   return Math.round(base + (km * porKm));
 };
 
@@ -62,6 +62,15 @@ app.post('/cotizar', async (req, res) => {
 
     const destino = `${to.address} ${to.street_number}, ${to.city}, ${to.region_name}, ${to.country}`;
     const km = await getDistanceInKm(ORIGEN, destino);
+
+    // Si se pasa de 9 km, no se ofrece el servicio
+    if (km > 9) {
+      return res.status(200).json({
+        reference_id: "OUT_OF_RANGE",
+        rates: []
+      });
+    }
+
     const costo = calcularCostoFlash(km);
 
     return res.status(200).json({
