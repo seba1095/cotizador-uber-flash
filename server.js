@@ -39,6 +39,8 @@ const calcularCostoFlash = (km) => {
   return Math.round(bruto / 100) * 100;
 };
 
+const costo = calcularCostoFlash(10);
+
 app.post('/cotizar', async (req, res) => {
   try {
     const costo = 6100;
