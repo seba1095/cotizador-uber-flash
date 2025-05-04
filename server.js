@@ -42,7 +42,7 @@ const calcularCostoFlash = (km) => {
   const base = 3000;
   const porKm = 500;
   const bruto = base + (km * porKm);
-  return Math.round(bruto / 100) * 100;
+  return bruto;
 };
 
 // Esta línea ya no se necesita, porque el costo será dinámico según la distancia
@@ -51,7 +51,7 @@ app.post('/cotizar', async (req, res) => {
   try {
     const destino = req.body.request.to.address + ', ' + req.body.request.to.city + ', ' + req.body.request.to.region_name + ', ' + req.body.request.to.country;
     const km = await getDistanceInKm(ORIGEN, destino);
-    const costo = km ? calcularCostoFlash(km) : 6100;
+    const costo = await calcularCostoFlash(km)
 
     const respuesta = {
       reference_id: `RND${Date.now()}`,
