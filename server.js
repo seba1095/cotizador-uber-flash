@@ -61,12 +61,12 @@ app.post('/cotizar', async (req, res) => {
     const destino = `${to.address} ${to.street_number}, ${to.city}, ${to.region_name}, ${to.country}`;
     const km = await getDistanceInKm(ORIGEN, destino);
 
-    if (km > 11) {
-      return res.status(200).json({
-        reference_id: `OUT_OF_RANGE`,
-        rates: []
-      });
-    }
+    // if (km > 11) {
+    //   return res.status(200).json({
+    //     reference_id: `OUT_OF_RANGE`,
+    //     rates: []
+    //   });
+    // }
 
     const costo = calcularCostoFlash(km);
 
@@ -78,7 +78,7 @@ app.post('/cotizar', async (req, res) => {
           rate_description: `Entrega rápida (${km.toFixed(1)} km)`,
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
-          total_price: costo.toString()
+          total_price: costo
         }
       ]
     });
