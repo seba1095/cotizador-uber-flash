@@ -39,7 +39,7 @@ const getDistanceInKm = async (origen, destino) => {
 };
 
 const calcularCostoFlash = (km) => {
-  const base = 3200;
+  const base = 3000;
   const porKm = 500;
   const bruto = base + (km * porKm);
   return bruto;
