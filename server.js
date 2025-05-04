@@ -39,7 +39,7 @@ const calcularCostoFlash = (km) => {
   return Math.round(bruto / 100) * 100;
 };
 
-const costo = calcularCostoFlash(10);
+const costo = calcularCostoFlash(11);
 
 app.post('/cotizar', async (req, res) => {
   try {
@@ -55,7 +55,7 @@ app.post('/cotizar', async (req, res) => {
           service_code: "FLASH",
           price: "$6.150",
           price_unformatted: 6130.1,
-          //total_price: Math.round(costo).toString()
+          total_price: 6131.1
         }
       ]
     };
