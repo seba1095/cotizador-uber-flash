@@ -44,15 +44,17 @@ app.post('/cotizar', async (req, res) => {
   try {
     const to = req.body?.request?.to;
 
-    // Si no viene dirección (como cuando haces Fetch Services), devuelve algo genérico
+    // Si no hay dirección destino, responder con formato compatible con Jumpseller
     if (!to) {
-      return res.json({
+      return res.status(200).json({
+        reference_id: "PREVIEW",
         rates: [
           {
-            name: "Envío Flash (Uber Moto)",
-            description: "Cotización estimada (dirección no recibida)",
-            price: 4000,
-            currency: "CLP"
+            rate_id: "FLASH_PREVIEW",
+            rate_description: "Cotización estimada (dirección no recibida)",
+            service_name: "Envío Flash (Uber Moto)",
+            service_code: "FLASH",
+            total_price: "4000"
           }
         ]
       });
@@ -62,20 +64,21 @@ app.post('/cotizar', async (req, res) => {
     const km = await getDistanceInKm(ORIGEN, destino);
     const costo = calcularCostoFlash(km);
 
-    res.json({
+    return res.status(200).json({
+      reference_id: "RND" + Math.floor(Math.random() * 1000000),
       rates: [
         {
-          name: "Envío Flash (Uber Moto)",
-          description: `Entrega rápida (${km.toFixed(2)} km)`,
-          price: costo,
-          currency: "CLP"
+          rate_id: "FLASH_" + Date.now(),
+          rate_description: `Entrega rápida (${km.toFixed(2)} km)`,
+          service_name: "Envío Flash (Uber Moto)",
+          service_code: "FLASH",
+          total_price: costo.toString()
         }
       ]
     });
-
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno en el servidor' });
+    console.error('Error en /cotizar:', error);
+    return res.status(500).json({ error: 'Error interno en el servidor' });
   }
 });
 
