@@ -75,9 +75,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 1 & km < 2) {
+    if (km >= 1 && km < 2) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -96,9 +98,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 2 & km < 3) {
+    if (km >= 2 && km < 3) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -117,9 +121,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 3 & km < 4) {
+    if (km >= 3 && km < 4) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -138,9 +144,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 4 & km < 5) {
+    if (km >= 4 && km < 5) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -159,9 +167,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 5 & km < 6) {
+    if (km >= 5 && km < 6) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -180,10 +190,12 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
 
-    if (km >= 6 & km < 7) {
+    if (km >= 6 && km < 7) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -202,9 +214,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 7 & km < 9) {
+    if (km >= 7 && km < 9) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -223,9 +237,11 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
 
-    if (km >= 9 & km < 10) {
+    if (km >= 9 && km < 10) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -244,9 +260,10 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
     }
 
-    if (km >= 10& km < 11) {
+    if (km >= 10 && km < 11) {
       let costo = 0;
       costo = calcularCostoFlash(km);
   
@@ -265,6 +282,8 @@ app.post('/cotizar', async (req, res) => {
           }
         ]
       };
+      return res.status(200).json(respuesta); // <-- Esta línea es esencial
+
     }
     
     
@@ -275,8 +294,6 @@ app.post('/cotizar', async (req, res) => {
     }
 
 
-    console.log("Respuesta enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
-    return res.status(200).json(respuesta);
   } catch (error) {
     console.error('Error en /cotizar:', error);
     return res.status(500).json({ error: 'Error interno en el servidor' });
