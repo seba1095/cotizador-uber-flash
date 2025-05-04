@@ -38,12 +38,6 @@ const getDistanceInKm = async (origen, destino) => {
     return null;
   }
 };
-require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
-const app = express();
-const PORT = process.env.PORT || 3000;
-app.use(express.json());
 
 app.get('/servicios', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -113,7 +107,7 @@ app.post('/cotizar', async (req, res) => {
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH2",
           //price: "$1001",
-          total_price: 50
+          total_price: costo
           //price_unformatted: parseInt(`${total}`, 10)
         }
       ]
