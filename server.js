@@ -70,7 +70,7 @@ app.post('/cotizar', async (req, res) => {
     }
 
     const respuesta = {
-      reference_id: "STATIC_OK",
+      reference_id: `RND${Date.now()}`,
       rates: [
         {
           rate_id: `FLASH_${costo}`,
