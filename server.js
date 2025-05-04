@@ -55,8 +55,8 @@ app.post('/cotizar', async (req, res) => {
           rate_description: "Tarifa fija",
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
-          price: `$${costo.toLocaleString('es-CL')}`,
-          price_unformatted: costo,
+          price: "$1001",
+          price_unformatted: 1000.1,
           total_price: 1000.1
         }
       ]
