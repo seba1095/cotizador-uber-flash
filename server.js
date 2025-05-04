@@ -39,40 +39,6 @@ const getDistanceInKm = async (origen, destino) => {
   }
 };
 
-app.get('/servicios', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.status(200).json({
-    services: [
-      {
-        service_name: "Envío Flash (Uber Moto)",
-        service_code: "FLASH2"
-      }
-    ]
-  });
-});
-
-const ORIGEN = 'Nueva San Martín 1490, Santiag Centro, Región Metropolitana';
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-
-const getDistanceInKm = async (origen, destino) => {
-  try {
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${encodeURIComponent(origen)}&destinations=${encodeURIComponent(destino)}&mode=driving&key=${GOOGLE_API_KEY}`;
-    const response = await axios.get(url);
-    const data = response.data;
-
-    if (data.status !== 'OK' || data.rows[0].elements[0].status !== 'OK') {
-      console.warn("Google API devolvió una respuesta no válida:", data);
-      return null;
-    }
-
-    const metros = data.rows[0].elements[0].distance.value;
-    return metros / 1000;
-  } catch (err) {
-    console.error("Error consultando la API de Google:", err.message);
-    return null;
-  }
-};
-
 const calcularCostoFlash = (km) => {
   const base = 3000;
   const porKm = 700;
