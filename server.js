@@ -67,8 +67,8 @@ app.post('/cotizar', async (req, res) => {
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH2",
           //price: "$1001",
-          total_price: Math.round(costo).toString(),
-          price_unformatted: 6000
+          total_price: Math.round(costo).toString()
+         // price_unformatted: 6000
         }
       ]
     };
