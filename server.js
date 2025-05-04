@@ -52,7 +52,7 @@ app.post('/cotizar', async (req, res) => {
     const destino = req.body.request.to.address + ' ' + req.body.request.to.street_number + ', ' + req.body.request.to.municipality_name + ', ' + req.body.request.to.region_name + ', ' + 'Chile';
     
     const km = await getDistanceInKm(ORIGEN, destino);
-    km = 10
+    let km = 10
     const costo = calcularCostoFlash(km)
 
     const respuesta = {
