@@ -37,12 +37,11 @@ const getDistanceInKm = async (origen, destino) => {
 const calcularCostoFlash = (km) => {
   const base = 3000;
   const porKm = 400;
-  return Math.round(base + (km * porKm));
+  return Math.round((base + (km * porKm)) / 100) * 100;
 };
 
 app.post('/cotizar', async (req, res) => {
   try {
-    /*
     const to = req.body?.request?.to;
 
     // Si no hay dirección destino, responder con formato compatible con Jumpseller
@@ -78,24 +77,11 @@ app.post('/cotizar', async (req, res) => {
       reference_id: "RND" + Math.floor(Math.random() * 1000000),
       rates: [
         {
-          rate_id: "FLASH_STATIC",
+          rate_id: "FLASH_" + to.city.toUpperCase().replace(/\s/g, '_'),
           rate_description: `Entrega rápida (${km.toFixed(2)} km)`,
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
           total_price: costo.toString()
-        }
-      ]
-    });
-    */
-    return res.status(200).json({
-      reference_id: "TEST_STATIC",
-      rates: [
-        {
-          rate_id: "FLASH_STATIC",
-          rate_description: "Entrega rápida (valor fijo)",
-          service_name: "Envío Flash (Uber Moto)",
-          service_code: "FLASH",
-          total_price: "6000"
         }
       ]
     });
