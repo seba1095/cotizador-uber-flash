@@ -54,7 +54,7 @@ app.post('/cotizar', async (req, res) => {
     const costo = calcularCostoFlash(km)
 
     const respuesta = {
-      reference_id: `RND_${costo}}`,
+      //reference_id: `RND_${costo}}`,
       rates: [
         {
           rate_id: `FLASH_${costo}`,
@@ -63,7 +63,7 @@ app.post('/cotizar', async (req, res) => {
           service_code: "FLASH",
           price: "$1001",
           price_unformatted: 1000.1,
-          total_price: 3400.0
+          total_price: costo
         }
       ]
     };
