@@ -41,42 +41,18 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
-    const to = req.body?.request?.to;
-    console.log("Contenido de 'to':", to);
-
-    let destino;
-    if (!to || !to.address || !to.city || !to.region_name || !to.country) {
-      destino = ORIGEN;
-    } else {
-      destino = `${to.address}${to.street_number ? ' ' + to.street_number : ''}, ${to.city}, ${to.region_name}, ${to.country}`;
-    }
-    console.log("Destino construido:", destino);
-
-    let costo;
-    try {
-      const km = await getDistanceInKm(ORIGEN, destino);
-      console.log("Distancia calculada:", km.toFixed(2), "km");
-
-      if (km > 20) {
-        console.warn("Distancia fuera de rango, usando tarifa fija.");
-        costo = 3500;
-      } else {
-        costo = calcularCostoFlash(km);
-      }
-    } catch (err) {
-      console.error("Error al calcular distancia:", err.response?.data || err.message);
-      console.warn("Fallo consulta a Maps, usando tarifa fija.");
-      costo = 3500;
-    }
+    const costo = 6100;
 
     const respuesta = {
       reference_id: `RND${Date.now()}`,
       rates: [
         {
           rate_id: `FLASH_${costo}`,
-          rate_description: "Tarifa calculada o fija",
+          rate_description: "Tarifa fija",
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
+          price: `$${costo.toLocaleString("es-CL")}`,
+          price_unformatted: costo,
           total_price: (costo * 100).toString()
         }
       ]
