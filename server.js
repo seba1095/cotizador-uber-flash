@@ -41,19 +41,48 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
+    const to = req.body?.request?.to;
+    console.log("Contenido de 'to':", to);
+
+    let destino;
+    if (!to || !to.address || !to.city || !to.region_name || !to.country) {
+      destino = ORIGEN;
+    } else {
+      destino = `${to.address}${to.street_number ? ' ' + to.street_number : ''}, ${to.city}, ${to.region_name}, ${to.country}`;
+    }
+    console.log("Destino construido:", destino);
+
+    let costo;
+    try {
+      const km = await getDistanceInKm(ORIGEN, destino);
+      console.log("Distancia calculada:", km.toFixed(2), "km");
+
+      if (km > 20) {
+        console.warn("Distancia fuera de rango, usando tarifa fija.");
+        costo = 3500;
+      } else {
+        costo = calcularCostoFlash(km);
+      }
+    } catch (err) {
+      console.error("Error al calcular distancia:", err.response?.data || err.message);
+      console.warn("Fallo consulta a Maps, usando tarifa fija.");
+      costo = 3500;
+    }
+
     const respuesta = {
-      reference_id: "STATIC_TEST",
+      reference_id: "STATIC_OK",
       rates: [
         {
           rate_id: "FLASH_STATIC",
-          rate_description: "Tarifa fija de prueba",
+          rate_description: "Tarifa calculada o fija",
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
-          total_price: 3500
+          total_price: costo
         }
       ]
     };
-    console.log("Respuesta estática enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
+
+    console.log("Respuesta enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
     return res.status(200).json(respuesta);
   } catch (error) {
     console.error('Error en /cotizar:', error);
