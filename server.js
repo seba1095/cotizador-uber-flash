@@ -16,7 +16,7 @@ app.get('/servicios', (req, res) => {
   });
 });
 
-const ORIGEN = 'Av. Providencia 1234, Santiago';
+const ORIGEN = 'Nueva San Martín 1490, 8340513 Santiago, Región Metropolitana';
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 const getDistanceInKm = async (origen, destino) => {
