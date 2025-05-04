@@ -66,7 +66,7 @@ app.post('/cotizar', async (req, res) => {
     // Si se pasa de 9 km, no se ofrece el servicio
     if (km > 11) {
       return res.status(200).json({
-        reference_id: "OUT_OF_RANGE",
+        reference_id: `OUT_OF_RANGE (${km.toFixed(2)} km)`,
         rates: []
       });
     }
