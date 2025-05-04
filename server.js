@@ -54,7 +54,7 @@ app.post('/cotizar', async (req, res) => {
             rate_description: "Cotización estimada (dirección no recibida)",
             service_name: "Envío Flash (Uber Moto)",
             service_code: "FLASH",
-            total_price: "4000"
+            total_price: "6000"
           }
         ]
       });
