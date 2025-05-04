@@ -40,61 +40,20 @@ const calcularCostoFlash = (km) => {
 };
 
 app.post('/cotizar', async (req, res) => {
-  console.log("Solicitud recibida de Jumpseller:\n", JSON.stringify(req.body, null, 2));
   try {
-    const to = req.body?.request?.to;
-    console.log("Contenido de 'to':", to);
-
-    if (!to) {
-      return res.status(200).json({
-        reference_id: "PREVIEW",
-        rates: [
-          {
-            rate_id: "FLASH_PREVIEW",
-            rate_description: "Cotización estimada (dirección no recibida)",
-            service_name: "Envío Flash (Uber Moto)",
-            service_code: "FLASH",
-            total_price: 3500
-          }
-        ]
-      });
-    }
-
-    // if (!to.address || !to.city || !to.region_name || !to.country) {
-    //   throw new Error('Dirección incompleta');
-    // }
-    const destino = `${to.address}${to.street_number ? ' ' + to.street_number : ''}, ${to.city}, ${to.region_name}, ${to.country}`;
-    let km;
-    try {
-      console.log("Destino construido:", destino);
-      km = await getDistanceInKm(ORIGEN, destino);
-    } catch (err) {
-      console.error("Error al obtener distancia:", err.response?.data || err.message);
-      throw new Error("Fallo la consulta a Google Maps");
-    }
-
-    // if (km > 11) {
-    //   return res.status(200).json({
-    //     reference_id: `OUT_OF_RANGE`,
-    //     rates: []
-    //   });
-    // }
-
-    const costo = calcularCostoFlash(km);
-
     const respuesta = {
-      reference_id: "RND" + Math.floor(Math.random() * 1000000),
+      reference_id: "STATIC_TEST",
       rates: [
         {
           rate_id: "FLASH_STATIC",
-          rate_description: `Entrega rápida (${km.toFixed(1)} km)`,
+          rate_description: "Tarifa fija de prueba",
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
-          total_price: costo
+          total_price: 3500
         }
       ]
     };
-    console.log("Respuesta enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
+    console.log("Respuesta estática enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
     return res.status(200).json(respuesta);
   } catch (error) {
     console.error('Error en /cotizar:', error);
