@@ -53,7 +53,7 @@ app.post('/cotizar', async (req, res) => {
           service_code: "FLASH",
           price: `$${costo.toLocaleString("es-CL")}`,
           price_unformatted: costo,
-          total_price: (costo * 100).toString()
+          total_price: costo.toString()
         }
       ]
     };
