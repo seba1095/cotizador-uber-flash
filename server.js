@@ -41,7 +41,7 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
-    const costo = 6100;
+    const costo = 6100 / 100;
 
     const respuesta = {
       reference_id: `RND${Date.now()}`,
@@ -52,8 +52,8 @@ app.post('/cotizar', async (req, res) => {
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
           price: `$${costo.toLocaleString("es-CL")}`,
-          price_unformatted: costo,
-          total_price: costo.toString()
+          price_unformatted: Math.round(costo),
+          total_price: Math.round(costo).toString()
         }
       ]
     };
