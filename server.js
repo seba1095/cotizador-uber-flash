@@ -41,7 +41,7 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
-    const costo = 6100 / 100;
+    const costo = 6100;
 
     const respuesta = {
       reference_id: `RND${Date.now()}`,
