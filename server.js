@@ -43,6 +43,7 @@ app.post('/cotizar', async (req, res) => {
   console.log("Solicitud recibida de Jumpseller:\n", JSON.stringify(req.body, null, 2));
   try {
     const to = req.body?.request?.to;
+    console.log("Contenido de 'to':", to);
 
     if (!to) {
       return res.status(200).json({
@@ -59,10 +60,10 @@ app.post('/cotizar', async (req, res) => {
       });
     }
 
-    if (!to.address || !to.city || !to.region_name || !to.country) {
-      throw new Error('Dirección incompleta');
-    }
-    const destino = `${to.address} ${to.street_number}, ${to.city}, ${to.region_name}, ${to.country}`;
+    // if (!to.address || !to.city || !to.region_name || !to.country) {
+    //   throw new Error('Dirección incompleta');
+    // }
+    const destino = `${to.address}${to.street_number ? ' ' + to.street_number : ''}, ${to.city}, ${to.region_name}, ${to.country}`;
     let km;
     try {
       console.log("Destino construido:", destino);
