@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.get('/servicios', (req, res) => {
@@ -80,6 +81,6 @@ app.post('/cotizar', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor activo en http://localhost:3000');
+app.listen(PORT, () => {
+  console.log(`Servidor activo en http://localhost:${PORT}`);
 });
