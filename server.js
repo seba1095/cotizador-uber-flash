@@ -38,10 +38,50 @@ const getDistanceInKm = async (origen, destino) => {
     return null;
   }
 };
+require('dotenv').config();
+const express = require('express');
+const axios = require('axios');
+const app = express();
+const PORT = process.env.PORT || 3000;
+app.use(express.json());
+
+app.get('/servicios', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200).json({
+    services: [
+      {
+        service_name: "Envío Flash (Uber Moto)",
+        service_code: "FLASH2"
+      }
+    ]
+  });
+});
+
+const ORIGEN = 'Nueva San Martín 1490, Santiag Centro, Región Metropolitana';
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+
+const getDistanceInKm = async (origen, destino) => {
+  try {
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${encodeURIComponent(origen)}&destinations=${encodeURIComponent(destino)}&mode=driving&key=${GOOGLE_API_KEY}`;
+    const response = await axios.get(url);
+    const data = response.data;
+
+    if (data.status !== 'OK' || data.rows[0].elements[0].status !== 'OK') {
+      console.warn("Google API devolvió una respuesta no válida:", data);
+      return null;
+    }
+
+    const metros = data.rows[0].elements[0].distance.value;
+    return metros / 1000;
+  } catch (err) {
+    console.error("Error consultando la API de Google:", err.message);
+    return null;
+  }
+};
 
 const calcularCostoFlash = (km) => {
   const base = 3000;
-  const porKm = 500;
+  const porKm = 700;
   let bruto = 0
   bruto = base + (km * porKm);
   return bruto;
@@ -62,7 +102,7 @@ app.post('/cotizar', async (req, res) => {
     }
     let costo = 0;
     costo = calcularCostoFlash(km);
-
+    //costo = km;
 
     const respuesta = {
       //reference_id: `RND_${costo}}`,
@@ -73,7 +113,7 @@ app.post('/cotizar', async (req, res) => {
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH2",
           //price: "$1001",
-          total_price: "6990"
+          total_price: costo
           //price_unformatted: parseInt(`${total}`, 10)
         }
       ]
