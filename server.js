@@ -54,7 +54,7 @@ app.post('/cotizar', async (req, res) => {
     const costo = await calcularCostoFlash(km)
 
     const respuesta = {
-      reference_id: `RND${Date.now()}`,
+      reference_id: `RND_${costo}}`,
       rates: [
         {
           rate_id: `FLASH_${costo}`,
