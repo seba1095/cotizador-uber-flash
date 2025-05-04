@@ -10,8 +10,8 @@ app.get('/servicios', (req, res) => {
   res.status(200).json({
     services: [
       {
-        service_name: "Envío Flash (Uber Moto)",
-        service_code: "FLASH2"
+        service_name: "Envío Flash",
+        service_code: "FLASH3"
       }
     ]
   });
@@ -70,8 +70,8 @@ app.post('/cotizar', async (req, res) => {
         {
           //rate_id: "242421214",
           //rate_description: "Tarifa fija",
-          service_name: "Envío Flash (Uber Moto)",
-          service_code: "FLASH2",
+          service_name: "Envío Flash",
+          service_code: "FLASH3",
           //price: "$1001",
           total_price: costo
           //price_unformatted: parseInt(`${total}`, 10)
