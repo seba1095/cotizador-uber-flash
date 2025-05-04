@@ -16,6 +16,29 @@ app.get('/servicios', (req, res) => {
   });
 });
 
+const ORIGEN = 'Nueva San Martín 1490, 8340513 Santiago, Región Metropolitana';
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+
+const getDistanceInKm = async (origen, destino) => {
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${encodeURIComponent(origen)}&destinations=${encodeURIComponent(destino)}&mode=driving&key=${GOOGLE_API_KEY}`;
+  const response = await axios.get(url);
+  const data = response.data;
+
+  if (data.status !== 'OK' || data.rows[0].elements[0].status !== 'OK') {
+    throw new Error('No se pudo obtener la distancia');
+  }
+
+  const metros = data.rows[0].elements[0].distance.value;
+  return metros / 1000;
+};
+
+const calcularCostoFlash = (km) => {
+  const base = 3000;
+  const porKm = 500;
+  const bruto = base + (km * porKm);
+  return Math.round(bruto / 100) * 100;
+};
+
 app.post('/cotizar', async (req, res) => {
   try {
     const to = req.body?.request?.to;
@@ -35,15 +58,27 @@ app.post('/cotizar', async (req, res) => {
       });
     }
 
+    const destino = `${to.address} ${to.street_number}, ${to.city}, ${to.region_name}, ${to.country}`;
+    const km = await getDistanceInKm(ORIGEN, destino);
+
+    if (km > 11) {
+      return res.status(200).json({
+        reference_id: `OUT_OF_RANGE`,
+        rates: []
+      });
+    }
+
+    const costo = calcularCostoFlash(km);
+
     return res.status(200).json({
       reference_id: "RND" + Math.floor(Math.random() * 1000000),
       rates: [
         {
           rate_id: "FLASH_STATIC",
-          rate_description: "Envío con tarifa fija",
+          rate_description: `Entrega rápida (${km.toFixed(1)} km)`,
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
-          total_price: "3500"
+          total_price: costo.toString()
         }
       ]
     });
