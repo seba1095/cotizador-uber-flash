@@ -40,6 +40,7 @@ const calcularCostoFlash = (km) => {
 };
 
 app.post('/cotizar', async (req, res) => {
+  console.log("Solicitud recibida de Jumpseller:\n", JSON.stringify(req.body, null, 2));
   try {
     const to = req.body?.request?.to;
 
@@ -58,7 +59,11 @@ app.post('/cotizar', async (req, res) => {
       });
     }
 
+    if (!to.address || !to.city || !to.region_name || !to.country) {
+      throw new Error('Dirección incompleta');
+    }
     const destino = `${to.address} ${to.street_number}, ${to.city}, ${to.region_name}, ${to.country}`;
+    console.log("Consultando distancia a:", destino);
     const km = await getDistanceInKm(ORIGEN, destino);
 
     // if (km > 11) {
@@ -70,7 +75,7 @@ app.post('/cotizar', async (req, res) => {
 
     const costo = calcularCostoFlash(km);
 
-    return res.status(200).json({
+    const respuesta = {
       reference_id: "RND" + Math.floor(Math.random() * 1000000),
       rates: [
         {
@@ -81,7 +86,9 @@ app.post('/cotizar', async (req, res) => {
           total_price: costo
         }
       ]
-    });
+    };
+    console.log("Respuesta enviada a Jumpseller:\n", JSON.stringify(respuesta, null, 2));
+    return res.status(200).json(respuesta);
   } catch (error) {
     console.error('Error en /cotizar:', error);
     return res.status(500).json({ error: 'Error interno en el servidor' });
