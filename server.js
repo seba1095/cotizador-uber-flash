@@ -20,16 +20,22 @@ const ORIGEN = 'Nueva San Martín 1490, 8340513 Santiago, Región Metropolitana'
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 const getDistanceInKm = async (origen, destino) => {
-  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${encodeURIComponent(origen)}&destinations=${encodeURIComponent(destino)}&mode=driving&key=${GOOGLE_API_KEY}`;
-  const response = await axios.get(url);
-  const data = response.data;
+  try {
+    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${encodeURIComponent(origen)}&destinations=${encodeURIComponent(destino)}&mode=driving&key=${GOOGLE_API_KEY}`;
+    const response = await axios.get(url);
+    const data = response.data;
 
-  if (data.status !== 'OK' || data.rows[0].elements[0].status !== 'OK') {
-    throw new Error('No se pudo obtener la distancia');
+    if (data.status !== 'OK' || data.rows[0].elements[0].status !== 'OK') {
+      console.warn("Google API devolvió una respuesta no válida:", data);
+      return null;
+    }
+
+    const metros = data.rows[0].elements[0].distance.value;
+    return metros / 1000;
+  } catch (err) {
+    console.error("Error consultando la API de Google:", err.message);
+    return null;
   }
-
-  const metros = data.rows[0].elements[0].distance.value;
-  return metros / 1000;
 };
 
 const calcularCostoFlash = (km) => {
@@ -45,8 +51,7 @@ app.post('/cotizar', async (req, res) => {
   try {
     const destino = req.body.request.to.address + ', ' + req.body.request.to.city + ', ' + req.body.request.to.region_name + ', ' + req.body.request.to.country;
     const km = await getDistanceInKm(ORIGEN, destino);
-    //const costo = calcularCostoFlash(km);
-    costo = 1000
+    const costo = km ? calcularCostoFlash(km) : 6100;
 
     const respuesta = {
       reference_id: `RND${Date.now()}`,
