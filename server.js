@@ -57,8 +57,8 @@ app.post('/cotizar', async (req, res) => {
       //reference_id: `RND_${costo}}`,
       rates: [
         {
-          rate_id: `FLASH_${costo}`,
-          rate_description: "Tarifa fija",
+          //rate_id: `FLASH_${costo}`,
+          //rate_description: "Tarifa fija",
           service_name: "Envío Flash (Uber Moto)",
           service_code: "FLASH",
           price: "$1001",
