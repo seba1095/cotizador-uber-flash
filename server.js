@@ -57,7 +57,7 @@ app.post('/cotizar', async (req, res) => {
     const hora = ahora.hour;
     const minuto = ahora.minute;
 
-    if (hora < 11 || (hora === 23 && minuto > 30) || hora > 23) {
+    if (hora < 11 || hora > 20) {
       return res.status(400).json({ error: 'Solo se aceptan cotizaciones entre las 11:00 y las 23:30 hora Chile.' });
     }
 
