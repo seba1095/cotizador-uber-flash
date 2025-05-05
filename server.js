@@ -1,3 +1,4 @@
+const { DateTime } = require('luxon');
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
@@ -51,30 +52,30 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
+    // Validación de horario antes de calcular la distancia
+    const ahora = DateTime.now().setZone('America/Santiago');
+    const hora = ahora.hour;
+    const minuto = ahora.minute;
+
+    if (hora < 11 || (hora === 23 && minuto > 30) || hora > 23) {
+      return res.status(400).json({ error: 'Solo se aceptan cotizaciones entre las 11:00 y las 23:30 hora Chile.' });
+    }
+
     const destino = req.body.request.to.address + ' ' + req.body.request.to.street_number + ', ' + req.body.request.to.municipality_name + ', ' + req.body.request.to.region_name + ', ' + 'Chile';
-    
     let km = 0;
     km = await getDistanceInKm(ORIGEN, destino);
     if (km > 12) {
       return res.status(400).json({ error: 'La distancia máxima permitida es 12 km.' });
-
-      
     }
     let costo = 0;
     costo = calcularCostoFlash(km);
-    //costo = km;
 
     const respuesta = {
-      //reference_id: `RND_${costo}}`,
       rates: [
         {
-          //rate_id: "242421214",
-          //rate_description: "Tarifa fija",
           service_name: "Envío Flash",
           service_code: "FLASH3",
-          //price: "$1001",
           total_price: costo
-          //price_unformatted: parseInt(`${total}`, 10)
         }
       ]
     };
