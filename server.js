@@ -52,15 +52,6 @@ const calcularCostoFlash = (km) => {
 
 app.post('/cotizar', async (req, res) => {
   try {
-    // Validación de horario antes de calcular la distancia
-    const ahora = DateTime.now().setZone('America/Santiago');
-    const hora = ahora.hour;
-    const minuto = ahora.minute;
-
-    if (hora < 11 || hora > 20) {
-      return res.status(400).json({ error: 'Solo se aceptan cotizaciones entre las 11:00 y las 23:30 hora Chile.' });
-    }
-
     const destino = req.body.request.to.address + ' ' + req.body.request.to.street_number + ', ' + req.body.request.to.municipality_name + ', ' + req.body.request.to.region_name + ', ' + 'Chile';
     let km = 0;
     km = await getDistanceInKm(ORIGEN, destino);
