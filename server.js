@@ -52,13 +52,19 @@ const calcularCostoFlash = (km) => {
 app.post('/cotizar', async (req, res) => {
   try {
     const destino = req.body.request.to.address + ' ' + req.body.request.to.street_number + ', ' + req.body.request.to.municipality_name + ', ' + req.body.request.to.region_name + ', ' + 'Chile';
-    let km = 0;
-    km = await getDistanceInKm(ORIGEN, destino);
+    const km = await getDistanceInKm(ORIGEN, destino);
+
+    // Si la distancia no se pudo calcular, no devolvemos tarifas
+    if (km === null) {
+      console.warn("No se pudo calcular la distancia. No se enviarán tarifas.");
+      return res.status(200).json({ rates: [] });
+    }
+    
+    // Si supera el límite de distancia
     if (km > 12) {
       return res.status(400).json({ error: 'La distancia máxima permitida es 12 km.' });
     }
-    let costo = 0;
-    costo = calcularCostoFlash(km);
+    const costo = calcularCostoFlash(km);
 
     const respuesta = {
       rates: [
