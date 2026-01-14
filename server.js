@@ -42,6 +42,7 @@ const getDistanceInKm = async (origen, destino) => {
 const calcularCostoFlash = (km) => {
   const base = 3000;
   const porKm = 400;
+  if (km > 12) {const porKm = 600}
   let bruto = 0
   bruto = base + (km * porKm);
   return bruto;
@@ -61,8 +62,8 @@ app.post('/cotizar', async (req, res) => {
     }
     
     // Si supera el límite de distancia
-    if (km > 12) {
-      return res.status(400).json({ error: 'La distancia máxima permitida es 12 km.' });
+    if (km > 35) {
+      return res.status(400).json({ error: 'La distancia máxima permitida es 34 km.' });
     }
     const costo = calcularCostoFlash(km);
 
