@@ -65,7 +65,7 @@ app.post('/cotizar', async (req, res) => {
 
     if (req.body.request.to.address === null || req.body.request.to.municipality_name === null) {
       console.warn("Direccion invalida");
-      return res.status(200).json({ rates: [] });
+      return null;
     }
     
     // Si supera el límite de distancia
