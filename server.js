@@ -62,10 +62,10 @@ app.post('/cotizar', async (req, res) => {
       console.warn("No se pudo calcular la distancia. No se enviarán tarifas.");
       return res.status(200).json({ rates: [] });
     }
-
+    
     if (req.body.request.to.address === null || req.body.request.to.municipality_name === null) {
       console.warn("Direccion invalida");
-      return null;
+      return res.status(400).json({ error: "Faltan datos" });
     }
     
     // Si supera el límite de distancia
