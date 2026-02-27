@@ -64,12 +64,9 @@ app.post('/cotizar', async (req, res) => {
     }
     
     if (req.body.request.to.address === null || req.body.request.to.municipality_name === null) {
-      console.warn("Direccion invalida");
-      return res.status(400).json({ error: "Faltan datos" });
+      return res.status(400).json({ error: 'La distancia máxima permitida es 40 km.' });
     }
     
-    return res.status(400).json({ error: 'La distancia máxima permitida es 40 km.' });
-
     // Si supera el límite de distancia
     if (km > 41) {
       return res.status(400).json({ error: 'La distancia máxima permitida es 40 km.' });
