@@ -63,7 +63,7 @@ app.post('/cotizar', async (req, res) => {
       return res.status(200).json({ rates: [] });
     }
 
-    if (req.body.request.to.address === null) {
+    if (req.body.request.to.address === null || req.body.request.to.municipality_name === null) {
       console.warn("Direccion invalida");
       return res.status(200).json({ rates: [] });
     }
