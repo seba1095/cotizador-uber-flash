@@ -10,7 +10,7 @@ app.get('/servicios', (req, res) => {
   res.status(200).json({
     services: [
       {
-        service_name: "Envío Flash",
+        service_name: "Envio Flash",
         service_code: "FLASH3"
       }
     ]
@@ -76,7 +76,7 @@ app.post('/cotizar', async (req, res) => {
     const respuesta = {
       rates: [
         {
-          service_name: "Envío Flash",
+          service_name: "Envio Flash",
           service_code: "FLASH3",
           total_price: costo
         }
